@@ -21,15 +21,29 @@ function App() {
       }
       
       const data = await response.json();
-      const transformedMovies = data.results.map((result) => {
-        return {
-          id: result.episode_id,
-          title: result.title,
-          openingText: result.opening_crawl,
-          releaseDate: result.release_date,
-        };
-      });
-      setMovies(transformedMovies);
+
+
+      const loadedMovies = [];
+
+      for(const key in data){
+        loadedMovies.push({
+          id: data[key].id,
+          title: data[key].title,
+          openingText: data[key].openingText,
+          releaseDate: data[key].releaseDate
+        })
+      }
+
+      // const transformedMovies = data.results.map((result) => {
+      //   return {
+      //     id: result.episode_id,
+      //     title: result.title,
+      //     openingText: result.opening_crawl,
+      //     releaseDate: result.release_date,
+      //   };
+      // });
+
+      setMovies(loadedMovies);
     } catch(error){
       setError(error.message);
     }
